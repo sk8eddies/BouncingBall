@@ -115,10 +115,6 @@ class Model {
 
                 double overlap = (ball1.radius + ball2.radius) - Math.abs(ball1Position.getX()-ball2Position.getX());
 
-                /*System.out.println("Angle: " + 360*lineCoords.angle/(2*Math.PI));
-                System.out.println("Ball 1 line pos: " + ball1Position.getX());
-                System.out.println("Ball 2 line pos: " + ball2Position.getX());*/
-
                 if(ball1Position.getX() < ball2Position.getX()){
                     ball1Position.setX(ball1Position.getX() - overlap/2);
                     ball2Position.setX(ball2Position.getX() + overlap/2);
@@ -126,9 +122,6 @@ class Model {
                     ball1Position.setX(ball1Position.getX() + overlap/2);
                     ball2Position.setX(ball2Position.getX() - overlap/2);
                 }
-
-                /*System.out.println("Ball 1 line pos after: " + ball1Position.getX());
-                System.out.println("Ball 2 line pos after: " + ball2Position.getX());*/
 
                 ball1Position = BallUtil.rotateBackwards(ball1Position, lineCoords.angle);
                 ball2Position = BallUtil.rotateBackwards(ball2Position, lineCoords.angle);
@@ -138,31 +131,6 @@ class Model {
                 ball1.y = ball1Position.getY();
                 ball2.x = ball2Position.getX();
                 ball2.y = ball2Position.getY();
-
-                /* // Test angle (WORKS)
-                Vector2D point2 = new Vector2D(1, 1);
-                Vector2D point1 = new Vector2D(2, 2);
-
-                Vector2D line2 = new Vector2D(point1.getX() - point2.getX(), point1.getY() - point2.getY());
-
-                PolarCoords coords = BallUtil.cartesianToPolar(line2);
-
-                System.out.println("Ball angle:" + coords.angle);
-
-
-                // Test converting (WORKS)
-
-                PolarCoords linePolar = BallUtil.cartesianToPolar(line);
-
-                Vector2D test = BallUtil.rotateCoordinateSystem(new Vector2D(2, 1), Math.PI/4);
-
-                System.out.println(test.toString());
-
-                Vector2D test2 = BallUtil.rotateBackwards(test, Math.PI/4);
-
-                System.out.println(test2.toString());
-                */
-                System.out.println("----------------------------------------------------");
 
             }
     }
