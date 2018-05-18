@@ -23,7 +23,7 @@ class Model {
 
         // Initialize the model with a few balls
         balls = new Ball[2];
-        balls[0] = new Ball(2*width / 3, height * 1/8, 0, 0, 0.2);
+        balls[0] = new Ball(2*width / 3, height * 1/8, 5, 0, 0.2);
         balls[1] = new Ball(1.75 * width / 3, height * 2/6, 0, 0, 0.3);
         //balls[2] = new Ball(2.5 * width / 3, height * 0.5  , -0.6, 0.6, 0.3);
     }
@@ -93,9 +93,11 @@ class Model {
                 //double velocity difference = ball1Velocity.getX() - ball2Velocity.getX();
 
                 // Swap velocity in parallel direction
-                double tempV = ball1Velocity.getX();
-                ball1Velocity.setX(ball2Velocity.getX());
-                ball2Velocity.setX(tempV);
+                double ball1NewVelocity = (ball2Velocity.getX()*ball2.mass)/ball1.mass;
+                double ball2NewVelocity = (ball1Velocity.getX()*ball1.mass)/ball2.mass;
+
+                ball1Velocity.setX(ball1NewVelocity);
+                ball2Velocity.setX(ball2NewVelocity);
 
                 // Rotate back to original coordinate system
                 ball1Velocity = BallUtil.rotateBackwards(ball1Velocity, lineCoords.angle);
@@ -113,7 +115,9 @@ class Model {
 
                 double overlap = (ball1.radius + ball2.radius) - Math.abs(ball1Position.getX()-ball2Position.getX());
 
-                assert overlap>0;
+                /*System.out.println("Angle: " + 360*lineCoords.angle/(2*Math.PI));
+                System.out.println("Ball 1 line pos: " + ball1Position.getX());
+                System.out.println("Ball 2 line pos: " + ball2Position.getX());*/
 
                 if(ball1Position.getX() < ball2Position.getX()){
                     ball1Position.setX(ball1Position.getX() - overlap/2);
@@ -122,6 +126,9 @@ class Model {
                     ball1Position.setX(ball1Position.getX() + overlap/2);
                     ball2Position.setX(ball2Position.getX() - overlap/2);
                 }
+
+                /*System.out.println("Ball 1 line pos after: " + ball1Position.getX());
+                System.out.println("Ball 2 line pos after: " + ball2Position.getX());*/
 
                 ball1Position = BallUtil.rotateBackwards(ball1Position, lineCoords.angle);
                 ball2Position = BallUtil.rotateBackwards(ball2Position, lineCoords.angle);
@@ -168,7 +175,7 @@ class Model {
         /**
          * Position, speed, and radius of the ball. You may wish to add other attributes.
          */
-        double x, y, vx, vy, radius;
+        double x, y, vx, vy, radius, mass;
 
         Ball(double x, double y, double vx, double vy, double r) {
             this.x = x;
@@ -176,6 +183,7 @@ class Model {
             this.vx = vx;
             this.vy = vy;
             this.radius = r;
+            this.mass = radius*radius*Math.PI;
         }
 
         public boolean isInCollisionRadius(Ball otherBall){

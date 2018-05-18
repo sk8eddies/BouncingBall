@@ -44,7 +44,7 @@ public final class Animator extends JPanel implements ActionListener {
 
     public Animator(int pixelWidth, int pixelHeight, int fps) {
         super(true);
-        this.timer = new Timer(20000 / fps, this);
+        this.timer = new Timer(2000 / fps, this);
         this.deltaT = 1.0 / fps;
         this.model = new Model(pixelWidth / pixelsPerMeter, pixelHeight / pixelsPerMeter);
         this.setOpaque(false);

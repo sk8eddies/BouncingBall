@@ -3,7 +3,7 @@
  */
 public class BallUtil {
     static PolarCoords cartesianToPolar(Vector2D v){
-        return new PolarCoords((Math.sqrt(v.getX()*v.getX()+v.getY()*v.getY())), Math.atan(Math.abs(v.getY())/Math.abs(v.getX())));
+        return new PolarCoords((Math.sqrt(v.getX()*v.getX()+v.getY()*v.getY())), Math.atan(v.getY()/v.getX()));
     }
 
     static Vector2D polarToCartesian(PolarCoords p){
