@@ -79,7 +79,7 @@ public final class Animator extends JPanel implements ActionListener {
             for(Model.Ball otherball : model.balls){
                 if(b != otherball){
                     if (b.isInCollisionRadius(otherball))
-                        g2.setColor(Color.red);
+                        g2.setColor(Color.blue);
                 }
             }
 

@@ -12,19 +12,19 @@
  */
 class Model {
 
-    double areaWidth, areaHeight, g;
-    boolean colliding = false;
-    Ball [] balls;
+        double areaWidth, areaHeight, g;
+        boolean colliding = false;
+        Ball [] balls;
 
-    Model(double width, double height) {
+        Model(double width, double height) {
         areaWidth = width;
         areaHeight = height;
         g = 9.82;
 
         // Initialize the model with a few balls
         balls = new Ball[2];
-        balls[0] = new Ball(2*width / 3, height * 1/8, 5, 0, 0.2);
-        balls[1] = new Ball(1.75 * width / 3, height * 2/6, 0, 0, 0.3);
+        balls[0] = new Ball(2*width / 3, height * 6/8, 5, -1, 0.3);
+        balls[1] = new Ball(1.75 * width / 3, height * 2/6, 2, 2.1, 0.4);
         //balls[2] = new Ball(2.5 * width / 3, height * 0.5  , -0.6, 0.6, 0.3);
     }
 
@@ -50,8 +50,6 @@ class Model {
 
         ball1.y += deltaT * ball1.vy;
         ball2.y += deltaT * ball2.vy;
-
-
 
     }
 
@@ -93,8 +91,8 @@ class Model {
                 //double velocity difference = ball1Velocity.getX() - ball2Velocity.getX();
 
                 // Swap velocity in parallel direction
-                double ball1NewVelocity = (ball2Velocity.getX()*ball2.mass)/ball1.mass;
-                double ball2NewVelocity = (ball1Velocity.getX()*ball1.mass)/ball2.mass;
+                double ball1NewVelocity = ball2Velocity.getX()*Math.sqrt(ball2.mass/ball1.mass);
+                double ball2NewVelocity = ball1Velocity.getX()*Math.sqrt(ball1.mass/ball2.mass);
 
                 ball1Velocity.setX(ball1NewVelocity);
                 ball2Velocity.setX(ball2NewVelocity);
