@@ -95,7 +95,7 @@ class Model {
                 double newVelocity1 = (I - ball2.mass*R)/(ball1.mass + ball2.mass);
                 double newVelocity2 = R + newVelocity1;
 
-                
+
                 double ball1NewVelocity = newVelocity1;
                 double ball2NewVelocity = newVelocity2;
 
@@ -116,8 +116,12 @@ class Model {
                 ball1.vy = ball1Velocity.getY();
                 ball2.vy = ball2Velocity.getY();
 
+
+                // The remaining, commented out code in this method moves the balls out of each other.
+                // This is not necessary when collision is handled as it should, but we left it here anyway.
+
                 // Assert only one hit, move out of distance
-                Vector2D ball1Position = BallUtil.rotateCoordinateSystem(new Vector2D(ball1.x, ball1.y), lineCoords.angle);
+               /* Vector2D ball1Position = BallUtil.rotateCoordinateSystem(new Vector2D(ball1.x, ball1.y), lineCoords.angle);
                 Vector2D ball2Position = BallUtil.rotateCoordinateSystem(new Vector2D(ball2.x, ball2.y), lineCoords.angle);
 
                 double overlap = (ball1.radius + ball2.radius) - Math.abs(ball1Position.getX()-ball2Position.getX());
@@ -137,7 +141,7 @@ class Model {
                 ball1.x = ball1Position.getX();
                 ball1.y = ball1Position.getY();
                 ball2.x = ball2Position.getX();
-                ball2.y = ball2Position.getY();
+                ball2.y = ball2Position.getY();*/
 
             }
     }
