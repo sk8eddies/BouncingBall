@@ -23,7 +23,7 @@ class Model {
 
         // Initialize the model with a few balls
         balls = new Ball[2];
-        balls[0] = new Ball(2*width / 3, height * 6/8, 5, -1, 0.3);
+        balls[0] = new Ball(2*width / 3, height * 6/8, 5, -1, 0.2);
         balls[1] = new Ball(1.75 * width / 3, height * 2/6, 2, 2.1, 0.4);
         //balls[2] = new Ball(2.5 * width / 3, height * 0.5  , -0.6, 0.6, 0.3);
     }
@@ -88,11 +88,20 @@ class Model {
                 // Rotate the velocities for ball2 to the correct coordinate system
                 Vector2D ball2Velocity = BallUtil.rotateCoordinateSystem(new Vector2D(ball2.vx, ball2.vy), lineCoords.angle);
 
-                //double velocity difference = ball1Velocity.getX() - ball2Velocity.getX();
 
-                // Swap velocity in parallel direction
-                double ball1NewVelocity = ball2Velocity.getX()*Math.sqrt(ball2.mass/ball1.mass);
-                double ball2NewVelocity = ball1Velocity.getX()*Math.sqrt(ball1.mass/ball2.mass);
+                // CORRECT, THIS IS THE NEW VELOCITY CALCULATIONS, PRASANTH
+                double I = ball1.mass*ball1Velocity.getX() + ball2.mass*ball2Velocity.getX();
+                double R = -(ball2Velocity.getX() - ball1Velocity.getX());
+                double newVelocity1 = (I - ball2.mass*R)/(ball1.mass + ball2.mass);
+                double newVelocity2 = R + newVelocity1;
+
+                
+                double ball1NewVelocity = newVelocity1;
+                double ball2NewVelocity = newVelocity2;
+
+                // WRONG, OLD CALCULATIONS WHERE WE SWAPPED KINETIC ENERGY
+                //ball2Velocity.getX()*Math.sqrt(ball2.mass/ball1.mass);
+                //ball1Velocity.getX()*Math.sqrt(ball1.mass/ball2.mass);
 
                 ball1Velocity.setX(ball1NewVelocity);
                 ball2Velocity.setX(ball2NewVelocity);
